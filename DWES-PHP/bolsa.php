@@ -3,12 +3,10 @@
     echo "<head></head>";
     echo "<body>";
       #PRINCIPIO CODIGO
-      $bolsa = array();
-
       for ($i=0; $i < 50; $i++) {//Creamos el array de la bolsa de forma dinamica
-        $bolsa[$i] = "Empresa$i" ==> array();
+        $bolsa = array("Empresa$i" ==> array());
         for ($x=0; $x < 9 ; $x++) {
-          $bolsa[$i][$x] = "valor$x" ==> rand(0, 15000);
+          $bolsa[$i][$x] = array("valor$x" ==> array());
         }
       }
 
