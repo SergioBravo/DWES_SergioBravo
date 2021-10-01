@@ -5,10 +5,10 @@
       #PRINCIPIO CODIGO
       for ($i=0; $i < 50; $i++) {//Creamos el array de la bolsa de forma dinamica
         $nombre = "empresa".($i+1);
-        $bolsa[$nombre] = array();
+        $bolsa[$nombre] = array();//Se creara la key cada fila con el nombre con formato "EmpresaX"
         for ($x=0; $x < 9 ; $x++) {
-          $atributo = "valor".$x;
-          $bolsa[$nombre][$atributo] = rand(0, 15000);
+          $atributo = "valor".$x;//Se creara la key de cada columna con el nombre con formato "ValorX"
+          $bolsa[$nombre][$atributo] = rand(0, 15000);//Añadimos el valor a cada celda del cojunto EmpresaX-ValorX
         }
       }
 
@@ -17,7 +17,7 @@
         echo "<legend><h2>Tabla de atributos de cada empresa en la bolsa</h2></legend>";
         echo "<tr>";
           echo "<th>Empresa</th>";
-        for ($i=0; $i < count($bolsa["empresa".($i+1)]); $i++) {
+        for ($i=0; $i < count($bolsa["empresa".($i+1)]); $i++) {//Este for cuenta el número de columnas del array y las crea en la tabla que mostraremos
           echo "<th>Valor".($i+1)."</th>";
         }
         echo "</tr>";
@@ -30,9 +30,7 @@
           echo "</tr>";
         }
       echo "</table>";
-      echo "-----------------------------------------------------------------------------------------------------------------------------------";
       #FINAL CODIGO
     echo "</body>";
   echo "</html>";
-
  ?>
