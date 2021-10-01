@@ -6,7 +6,7 @@
       for ($i=0; $i < 50; $i++) {//Creamos el array de la bolsa de forma dinamica
         $bolsa = array("Empresa$i" ==> array());
         for ($x=0; $x < 9 ; $x++) {
-          $bolsa[$i][$x] = array("valor$x" ==> array());
+          $bolsa[$i][$x] = array("valor$x" ==> rand(0, 15000));
         }
       }
 
