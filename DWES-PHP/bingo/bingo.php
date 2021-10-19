@@ -7,36 +7,41 @@
       shuffle($bombo);//Mezclamos de forma aleatoria los números generados
 
       #CREAMOS LOS CARTONES
-      $cartones = crearCartones($bombo);
+      for ($i=1; $i < 5; $i++) {//Con esto creamos los jugadores que queramos
+        ${"jugador".$i} = crearCartones($bombo);//Creamos un array para cada jugado
+      }
       #MOSTRAMOS LOS CARTONES
       echo "<div align=center>";
-        mostrarCartones($cartones);
+        echo "<table>";
+          echo "<tr>";
+            for ($i=1; $i < 5; $i++) {//Para cada jugador mostramos sus cartones
+              mostrarCartones(${"jugador".$i},$i);
+            }
+          echo "</tr>";
+        echo "</table>";
       echo "</div>";
       #CREAMOS EL BOMBO CAMBIANDO DE MANERA ALEATORIA DE NUEVO LOS NÚMEROS DEL MISMO
       shuffle($bombo);
-      #CREAMOS EL JUEGO COMPARANDO LOS NÚMEROS QUE VAYAN SALIENDO DEL BOMBO CON LOS DEL CARTON
-      #GANADOR
-      $minVueltas = 60;
-      $ganador = "";$ganadores = "";$num = 0;
-      for ($i=1; $i < 5; $i++) {//Creamos un comparador donde iremos mirando quien ha dado menos vueltas hasta completar el carton y por lo tanto ganar la partida
-        $nombre = "carton".$i;
-        if (numeroVueltas($cartones[$nombre],$bombo) < $minVueltas) {$minVueltas = numeroVueltas($cartones[$nombre],$bombo);$ganador = $nombre;$num = 0;}
-        if (numeroVueltas($cartones[$nombre],$bombo) == $minVueltas) {$ganadores .= "|$nombre";$num++;}
+      #CREAMOS UN ARRAY CON TODOS LOS JUGADORES QUE HAY PARA LUEGO PODER COMPARARLOS A TODOS A LA VEZ
+      for ($i=0; $i < 4; $i++) {//Aqui hay que poner el número de jugadores que hay
+        $jugadores[$i] = ${"jugador".($i+1)};
       }
+      #GANADOR
+      $ganador = ganadorBingo($jugadores,$bombo);
+      $cartonGanador = explode(" ", $ganador);//Dividimos el String para poder sacar el jugador ganador y su cartón
       #MOSTRAMOS EL BOMBO
       echo "<div align=center>";
-        mostrarBombo($bombo,$minVueltas,$cartones[$ganador]);
+        mostrarBombo($bombo,numVueltas($jugadores,$bombo),${$cartonGanador[0]}[$cartonGanador[1]]);
       echo "</div>";
       #MOSTRAMOS EL GANADOR
-      if ($num > 1) echo "<h2 align=center>BINGO <span style=color:red;text-transform:capitalize;>".$ganadores."!!!!!!!</span></h2>";
-      else echo "<h2 align=center>BINGO <span style=color:red;text-transform:capitalize;>".$ganador."!!!!!!!</span></h2>";
+      echo "<h2 align=center>BINGO <span style=color:red;text-transform:capitalize;>".$ganador."!!!!!!!</span></h2>";
       #FINAL CODIGO
     echo "</body>";
   echo "</html>";
 
   #FUNCIONES---------------------------------------------------------------------------------
 function crearCartones($bombo) {//Creamos los cartones puede haber x cartones
-  for ($w=1; $w < 5; $w++) {//Modificando los valores podemos crear los cartones que queramos
+  for ($w=1; $w < 4; $w++) {//Modificando los valores podemos crear los cartones que queramos
     $nombre = "carton".$w;
     $cartones[$nombre] = array();
 
@@ -55,24 +60,56 @@ function crearCartones($bombo) {//Creamos los cartones puede haber x cartones
   return $cartones;
 }
 
-function numeroVueltas($array,$bombo){//Comprobamos cuantas vueltas da un carton hasta completarse
-  $con = 0;$vueltas = 0;
-  while ($con < 15) {
-    foreach ($bombo as $filas => $numeros) {
-      foreach ($array as $fila => $valor) {
-          if ($valor == $numeros)$con++;
+function ganadorBingo($jugadores,$bombo){//Comprobamos cuantas vueltas da un carton hasta completarse
+  $gana=false;$ganador = "";
+  for ($i=0; $i < count($jugadores); $i++) {//Sacamos todos los jugadores
+    for ($x=1; $x <= count($jugadores[$i]); $x++) {//Creamos un contador para cada cartón de cada jugador
+      ${"j".($i+1)."con".$x} = 0;
+    }
+  }
+
+  for ($i=0; $i < count($bombo) && $gana == false; $i++) {
+    $conCar = 1;
+    while ($conCar < 4) {//Comparamos que el número que sale esta o no en cada carton de cada jugador
+      for ($x=0; $x < count($jugadores); $x++) {//Para cada jugador
+        if (in_array($bombo[$i], $jugadores[$x]["carton".$conCar]))${"j".($x+1)."con".$conCar}++;
+        if (${"j".($x+1)."con".$conCar} == 15) {$ganador .= "jugador".($x+1)." carton".$conCar." |";$gana = true;}
       }
-      if ($con < 15) ++$vueltas;
+      $conCar++;
+    }
+  }
+  return $ganador;
+}
+
+function numVueltas($jugadores,$bombo){//Similar al ganador pero devolviendo el número de vueltas para mostrar el bombo
+  $gana=false;$vueltas = 0;
+  for ($i=0; $i < count($jugadores); $i++) {//Sacamos todos los jugadores
+    for ($x=1; $x <= count($jugadores[$i]); $x++) {//Creamos un contador para cada cartón de cada jugador
+      ${"j".($i+1)."con".$x} = 0;
+    }
+  }
+
+  for ($i=0; $i < count($bombo) && $gana == false; $i++) {
+    $conCar = 1;
+    while ($conCar < 4) {//Comparamos que el número que sale esta o no en cada carton de cada jugador
+      for ($x=0; $x < count($jugadores); $x++) {//Para cada jugador
+        if (in_array($bombo[$i], $jugadores[$x]["carton".$conCar]))${"j".($x+1)."con".$conCar}++;
+        if (${"j".($x+1)."con".$conCar} == 15) {$gana = true;}
+      }
+      $conCar++;
+      $vueltas = $i;
     }
   }
   return $vueltas;
 }
 
-function mostrarCartones($cartones) {//Creamos una tabla con una sola fila que contiene las tablas de los cartones
+function mostrarCartones($jugador,$i) {//Creamos una tabla que va a contener tablas que mostraran los cartones de cada jugador
   $con = 0;//Para controlar las columnas de cada tabla de los cartones
-  echo "<table cellspacing=10px>";
+  $nom = "Jugador".$i;
+  echo "<table cellspacing=10px border=1px>";
+    echo "<legend align=center><h2>".$nom."</h2></legend>";
     echo "<tr>";
-    foreach ($cartones as $nombreCarton => $carton) {
+    foreach ($jugador as $nombreCarton => $carton) {
       echo "<td>";
       echo "<table border=1px>";
         echo "<h2><legend style=text-transform:capitalize>$nombreCarton</legend></h2>";
@@ -85,6 +122,7 @@ function mostrarCartones($cartones) {//Creamos una tabla con una sola fila que c
       echo "</table>";
       echo "</td>";
     }
+    echo "</td>";
     echo "</tr>";
   echo "</table>";
 }
