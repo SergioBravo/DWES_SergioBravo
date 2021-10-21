@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang=es dir=ltr>
+  <head>
+    <meta charset=utf-8>
+    <title>Formulario Alumnoss</title>
+  </head>
+  <body>
+    <h1>DATOS ALUMNOS</h1>
+    <div nom=cajaform>
+      <form action="./php/datos.php" method="post">
+        Nombre: <input type="text" name="nombre"> *Obligatorio<br><br>
+        Apellido1: <input type="text" name="apellido1"><br><br>
+        Apellido2: <input type="text" name="apellido2"><br><br>
+        Email: <input type="text" name="email"> *Obligatorio<br><br>
+        Sexo:
+        <input type="radio" name="sexo" value="M">Mujer
+        <input type="radio" name="sexo" value="H">Hombre *Obligatorio
+        <p>
+          <input type="submit" name="enviar" value="Enviar">
+          <input type="reset" name="borrar" value="Borrar">
+        </p>
+      </form>
+    </div>
+  </body>
+</html>

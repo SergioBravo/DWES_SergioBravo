@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Cambio Bases</title>
+  </head>
+  <body>
+    <h1 align="center">CAMBIO DE BASES</h1>
+    <div class="cajaForm" align="center">
+      <form action="./php/cambiobases.php" method="post">
+        <p>
+          <label for="numero">Número Decimal</label>
+          <input type="text" name="numero">
+        </p>
+        <div name="checkRadio">
+          <p>Convertir a: </p>
+          <input type="radio" name="base" value="bin">Binario<br>
+          <input type="radio" name="base" value="octa">Octal<br>
+          <input type="radio" name="base" value="hexa">Hexadecimal<br>
+          <input type="radio" name="base" value="all">Todos sistemas<br>
+        </div>
+        <p>
+          <input type="submit" name="enviar" value="Enviar">
+          <input type="reset" name="borrar" value="Borrar">
+        </p>
+      </form>
+    </div>
+  </body>
+</html>
