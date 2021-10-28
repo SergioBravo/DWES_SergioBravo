@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Fichero5</title>
+  </head>
+  <body>
+    <h1>OPERACIONES CON FICHEROS</h1>
+    <form action="./php/fichero5.php" method="post">
+      <p>Fichero (Path/nombre): <input type="text" name="ruta"></p>
+
+      <p>Operaciones<br>
+        <input type="radio" name="seleccion" value="fichero"> Mostrar Fichero<br>
+        <input type="radio" name="seleccion" value="ulinea"> Mostrar linea <input type="text" name="linea" size="3"> fichero<br>
+        <input type="radio" name="seleccion" value="nlinea"> Mostrar <input type="text" name="vlinea" size="3"> primeras lineas<br>
+      </p>
+
+      <p>
+        <input type="submit" name="enviar" value="Enviar">
+        <input type="reset" name="borrar" value="Borrar">
+      </p>
+    </form>
+  </body>
+</html>

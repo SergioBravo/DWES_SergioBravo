@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Fichero 1R</title>
+  </head>
+  <body>
+    <h1>FORMULARIO DE RECOGIDA DE DATOS</h1>
+    <form  action="./php/alumnos.php" method="post">
+      <p><b>Nombre: </b><input type="text" name="nombre"></p>
+      <p><b>Apellido1: </b><input type="text" name="apellido1"></p>
+      <p><b>Apellido2: </b><input type="text" name="apellido2"></p>
+      <p><b>Fecha Nacimiento: </b><input type="date" name="fecha"></p>
+      <p><b>Localidad: </b><input type="text" name="localidad"></p>
+
+      <p>
+        <input type="submit" name="enviar" value="Enviar">
+        <input type="reset" name="borrar" value="Borrar">
+      </p>
+    </form>
+    <form action="./php/fichero2R.php" method="post">
+        <h2>Mostrar datos de todos los alumnos del fichero</h2>
+        <input type="submit" name="mostrar" value="Mostrar">
+    </form>
+  </body>
+</html>
