@@ -1,0 +1,6 @@
+C6 # premio a percibir cada acertante 6 aciertos = 0.4
+C5+# premio a percibir cada acertante 5 aciertos + complementario = 0.3
+C5 # premio a percibir cada acertante 5 aciertos = 0.15
+C4 # premio a percibir cada acertante 4 aciertos = 0.05
+C3 # premio a percibir cada acertante 4 aciertos = 0.08
+CR # premio a percibir cada acertante reintegro = 0.02
